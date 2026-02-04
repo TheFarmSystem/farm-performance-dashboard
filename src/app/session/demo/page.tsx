@@ -50,16 +50,17 @@ function Card({
 }
 
 function HeroVisual({ label }: { label: string }) {
-  // Placeholder for the “big graphic” per section
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.02] p-5">
       <div className="text-xs font-medium uppercase tracking-widest text-white/50">
         {label}
       </div>
 
-      <div className="mt-4 h-44 w-full rounded-xl border border-white/10 bg-black/40" />
+      {/* Big graphic area */}
+      <div className="mt-4 h-44 w-full rounded-xl border border-white/10 bg-black/40 lg:h-64" />
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      {/* Insight boxes */}
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
           <div className="text-[11px] uppercase tracking-widest text-white/50">
             Insight
@@ -84,11 +85,12 @@ function HeroVisual({ label }: { label: string }) {
 function StickyNav() {
   return (
     <div className="sticky top-0 z-20 border-b border-white/10 bg-black/70 backdrop-blur">
-      <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-md items-center justify-between gap-4 px-4 py-3 lg:max-w-6xl">
         <div className="text-sm font-semibold text-white">
           Farm Performance Dashboard
         </div>
-        <div className="flex items-center gap-3 text-xs text-white/60">
+
+        <div className="hidden items-center gap-4 text-xs text-white/60 sm:flex">
           <Link href="#overview" className="hover:text-white">
             Overview
           </Link>
@@ -97,6 +99,16 @@ function StickyNav() {
           </Link>
           <Link href="#flight" className="hover:text-white">
             Flight
+          </Link>
+          <Link href="#next" className="hover:text-white">
+            Next
+          </Link>
+        </div>
+
+        {/* Mobile quick nav */}
+        <div className="flex items-center gap-3 text-xs text-white/60 sm:hidden">
+          <Link href="#overview" className="hover:text-white">
+            Overview
           </Link>
           <Link href="#next" className="hover:text-white">
             Next
@@ -117,7 +129,7 @@ function AthleteHeader({
   tags: string[];
 }) {
   return (
-    <div className="mx-auto max-w-md px-4 pt-6">
+    <div className="mx-auto max-w-md px-4 pt-6 lg:max-w-6xl">
       <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
         <div className="text-xs uppercase tracking-widest text-white/50">
           Client Report
@@ -142,7 +154,7 @@ function AthleteHeader({
 
 function KPIGrid() {
   return (
-    <div className="mx-auto mt-4 grid max-w-md grid-cols-3 gap-3 px-4">
+    <div className="mx-auto mt-4 grid max-w-md grid-cols-1 gap-3 px-4 sm:grid-cols-3 lg:max-w-6xl">
       <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
         <div className="text-[11px] uppercase tracking-widest text-white/50">
           Creation
@@ -168,9 +180,15 @@ function KPIGrid() {
   );
 }
 
-function TwoCol({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
+function TwoCol({
+  left,
+  right,
+}: {
+  left: React.ReactNode;
+  right: React.ReactNode;
+}) {
   return (
-    <div className="mx-auto grid max-w-md grid-cols-1 gap-3 px-4 sm:grid-cols-2">
+    <div className="mx-auto grid max-w-md grid-cols-1 gap-3 px-4 sm:grid-cols-2 lg:max-w-6xl">
       {left}
       {right}
     </div>
@@ -184,8 +202,6 @@ export default async function SessionPage({
 }) {
   const { id } = await params;
 
-  // Demo placeholders for structure.
-  // Next step: replace with real parsed Rapsodo + Blast session data.
   const athlete = id === "demo" ? "Riley Valentine" : `Session: ${id}`;
   const date = "Jan 27, 2026";
   const tags = ["Blast", "Rapsodo", "Hitting Eval"];
@@ -196,7 +212,7 @@ export default async function SessionPage({
       <AthleteHeader athlete={athlete} date={date} tags={tags} />
       <KPIGrid />
 
-      <div className="mx-auto max-w-md px-4 pb-20 pt-8">
+      <div className="mx-auto max-w-md px-4 pb-20 pt-8 lg:max-w-6xl">
         {/* OVERVIEW */}
         <div className="space-y-4">
           <SectionTitle
@@ -219,7 +235,7 @@ export default async function SessionPage({
             right={
               <Card title="Primary Focus">
                 <div className="text-sm text-white/80">
-                  Tighten consistency so your “best swings” show up more often.
+                  Tighten consistency so your best swings show up more often.
                 </div>
                 <div className="mt-3 text-xs text-white/50">
                   This will later map to 1–2 measurable metrics.
@@ -241,7 +257,7 @@ export default async function SessionPage({
           <TwoCol
             left={
               <Card title="Bat Speed Profile">
-                <div className="h-24 rounded-xl border border-white/10 bg-black/40" />
+                <div className="h-24 rounded-xl border border-white/10 bg-black/40 lg:h-40" />
                 <div className="mt-3 text-xs text-white/60">
                   Distribution + peak/avg markers.
                 </div>
@@ -249,7 +265,7 @@ export default async function SessionPage({
             }
             right={
               <Card title="Rotational Accel">
-                <div className="h-24 rounded-xl border border-white/10 bg-black/40" />
+                <div className="h-24 rounded-xl border border-white/10 bg-black/40 lg:h-40" />
                 <div className="mt-3 text-xs text-white/60">
                   Accel + time-to-contact style visual.
                 </div>
@@ -259,7 +275,7 @@ export default async function SessionPage({
           <Card title="Client Insight">
             <div className="text-sm text-white/80">
               When your timing is right, your creation is elite. The goal is to
-              raise the floor so “good” swings become your normal.
+              raise the floor so good swings become your normal.
             </div>
           </Card>
         </div>
@@ -276,15 +292,15 @@ export default async function SessionPage({
           <TwoCol
             left={
               <Card title="Exit Velo Distribution">
-                <div className="h-24 rounded-xl border border-white/10 bg-black/40" />
+                <div className="h-24 rounded-xl border border-white/10 bg-black/40 lg:h-40" />
                 <div className="mt-3 text-xs text-white/60">
-                  Pop chart with “target band” overlay.
+                  Pop chart with target band overlay.
                 </div>
               </Card>
             }
             right={
               <Card title="Launch Angle Distribution">
-                <div className="h-24 rounded-xl border border-white/10 bg-black/40" />
+                <div className="h-24 rounded-xl border border-white/10 bg-black/40 lg:h-40" />
                 <div className="mt-3 text-xs text-white/60">
                   Your launch window, shown clearly.
                 </div>
@@ -294,7 +310,7 @@ export default async function SessionPage({
           <Card title="Client Insight">
             <div className="text-sm text-white/80">
               The ball flight shows a strong middle window. We’re aiming to
-              reduce the “miss” outcomes by improving consistency in contact
+              reduce the miss outcomes by improving consistency in contact
               conditions.
             </div>
           </Card>
@@ -306,7 +322,7 @@ export default async function SessionPage({
             id="next"
             kicker="Next Steps"
             title="What we do from here"
-            subtitle="Simple, actionable steps based on what your data showed, without drowning you in coach-speak."
+            subtitle="Simple, actionable steps based on what your data showed, without drowning you in technical language."
           />
           <TwoCol
             left={
@@ -322,7 +338,7 @@ export default async function SessionPage({
               <Card title="What to Watch For">
                 <ul className="space-y-2 text-sm text-white/80">
                   <li>• More similar ball flights across swings</li>
-                  <li>• Fewer “leak” misses</li>
+                  <li>• Fewer leak misses</li>
                   <li>• Higher average outcomes, not just peaks</li>
                 </ul>
               </Card>
@@ -330,7 +346,7 @@ export default async function SessionPage({
           />
           <Card title="Coach Note">
             <div className="text-sm text-white/80">
-              This dashboard is your “after” view. The deep technical breakdown
+              This dashboard is your after view. The deeper technical breakdown
               lives behind it, but the plan stays simple.
             </div>
           </Card>
